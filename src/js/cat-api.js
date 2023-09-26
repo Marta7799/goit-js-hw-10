@@ -1,30 +1,24 @@
 import axios from 'axios';
+import { Notify } from 'notiflix';
 axios.defaults.headers.common['x-api-key'] =
   'live_xGDfLFniTT6tr6tY8tmuZjE4S0OsQyAvtkgbpFsM9YQRZ17yntwrUZI1YhqdXbcG';
 
+const errorInfo = document.querySelector('.error');
+
 export const fetchBreeds = () => {
-  return fetch(`https://api.thecatapi.com/v1/breeds`)
+  return axios
+    .get('https://api.thecatapi.com/v1/breeds')
     .then(response => {
-      if (!response.ok) {
-        if (response.status === 404) {
-          return [];
-        }
-        throw new Error(response.status);
-      }
-      return response.json();
+      return response.data;
     })
-    .catch(error => {
-      console.error(error);
-    });
+    .catch(error => Notify.failure(errorInfo.textContent));
 };
 
 export const fetchCatByBreed = breedId => {
   return axios
     .get('https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}')
     .then(response => {
-      return response.json();
+      return response.data;
     })
-    .catch(error => {
-      console.error(error);
-    });
+    .catch(error => Notify.failure(errorInfo.textContent));
 };
