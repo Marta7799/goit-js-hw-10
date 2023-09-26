@@ -2,7 +2,7 @@ import axios from 'axios';
 axios.defaults.headers.common['x-api-key'] =
   'live_xGDfLFniTT6tr6tY8tmuZjE4S0OsQyAvtkgbpFsM9YQRZ17yntwrUZI1YhqdXbcG';
 
-export const fetchBreeds = name => {
+export const fetchBreeds = () => {
   return fetch(`https://api.thecatapi.com/v1/breeds`)
     .then(response => {
       if (!response.ok) {

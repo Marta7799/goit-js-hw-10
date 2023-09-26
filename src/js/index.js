@@ -1,6 +1,7 @@
 import './../css/styles.css';
 import Notiflix from 'notiflix';
 import debounce from 'lodash';
+import SlimSelect from 'slim-select';
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import axios from 'axios';
 
