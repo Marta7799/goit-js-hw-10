@@ -14,9 +14,10 @@ const errorInfo = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
 
 document.addEventListener('DOMContentLoaded', () => {
+  Notiflix.Loading.standard(loaderInfo.textContent);
   fetchBreeds()
-    .then(
-      breeds =>
+    .then(breeds =>
+      Notiflix.Loading.remove()(
         (select = new SlimSelect({
           select: '.breed-select',
           data: breeds.map(breed => ({
@@ -24,8 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
             value: breed.id,
           })),
         }))
+      )
     )
-    .catch(error => Notify.failure(errorInfo.textContent));
+    .catch(error => Notiflix.Loading.remove()),
+    Notiflix.Notify.failure(errorInfo.textContent);
 });
 
 function fetchCatByBreed(breeds) {
