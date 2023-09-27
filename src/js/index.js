@@ -11,3 +11,33 @@ const selectBreed = document.querySelector('.breed-select');
 const loaderInfo = document.querySelector('.loader');
 const errorInfo = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
+
+selectBreed.addEventListener('change', () => {
+  fetchBreeds()
+    .then(
+      breeds =>
+        // fetchCatByBreed(breeds))
+        (select = new SlimSelect({
+          select: selectBreed,
+          data: breeds.map(breed => ({
+            text: breed.name,
+            value: breed.id,
+          })),
+        }))
+    )
+    .catch(error => Notify.failure(errorInfo.textContent));
+});
+
+function fetchCatByBreed(breeds) {
+  const markup = breeds
+    .map(breed => {
+      return `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+    <div class="description">
+        <h2>${cat.breeds[0].name}</h2>
+        <p>${cat.breeds[0].description}</p>
+        <p>${cat.breeds[0].temperament}</p>
+    </div>`;
+    })
+    .join('');
+  catInfo.innerHTML = markup;
+}
