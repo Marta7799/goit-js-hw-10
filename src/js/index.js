@@ -1,5 +1,5 @@
 import './../css/styles.css';
-import Notiflix from 'notiflix';
+import Notiflix, { Notify } from 'notiflix';
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
@@ -120,12 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //5
 
-selectBreed.addEventListener('change', event => {
-  const renderedBreed = event.target.value;
-  renderBreed(renderedBreed);
-});
+// selectBreed.addEventListener('change', event => {
+//   const renderedBreed = event.target.value;
+//   renderBreed(renderedBreed);
+// });
 
-function renderBreed(event) {
+const renderBreed = event => {
   //selectBreed.disabled = true;
   //catInfo.style.display = 'none';
   Notiflix.Loading.standard(loaderInfo.textContent);
@@ -135,22 +135,24 @@ function renderBreed(event) {
 
   fetchCatByBreed(breedId)
     .then(cat => {
-      console.log('Fetched cat info', cat);
-      Notiflix.Loading.remove();
-      console.log(cat[0]);
-      catInfo.innerHTML = `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+      // console.log('Fetched cat info', cat);
+      // Notiflix.Loading.remove();
+      // console.log(cat);
+      // catInfo.innerHTML
+      const markup = `<img src="${cat.url}" alt="${cat.breeds[0].name}">
       <div class="description">
          <h2>${cat.breeds[0].name}</h2>
          <p>${cat.breeds[0].description}</p>
          <p>${cat.breeds[0].temperament}</p>
           </div>`;
-      console.log(catInfo);
+      catInfo.innerHTML = markup;
+      // console.log(catInfo);
     })
     .catch(
       error => Notiflix.Loading.remove(),
       Notify.failure(errorInfo.textContent)
     );
-}
+};
 
 selectBreed.addEventListener('change', renderBreed);
 
