@@ -34,6 +34,28 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 });
 
+// selectBreed.addEventListener('change', event => {
+//   Notiflix.Loading.standard(loaderInfo.textContent);
+//   fetchCatByBreed(breedId)
+//     .then(breed => {
+//       Notiflix.Loading.remove();
+//       console.log(cat);
+//       catInfo.innerHTML = `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+//       <div class="description">
+//          <h2>${cat.breeds[0].name}</h2>
+//          <p>${cat.breeds[0].description}</p>
+//          <p>${cat.breeds[0].temperament}</p>
+//           </div>`;
+//       console.log(catInfo);
+//     })
+//     .catch(
+//       error => Notiflix.Loading.remove(),
+//       Notify.failure(errorInfo.textContent)
+//     );
+// });
+
+//2
+
 // function fetchCatByBreed(breeds) {
 //   const markup = breeds
 //     .map(breed => {
@@ -47,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
 //     .join('');
 //   catInfo.innerHTML = markup;
 // }
+
+//3
 
 // function renderBreed() {
 //   const selectBreed = slim.selected();
@@ -66,6 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
 //     });
 //   }
 // }
+
+//4
 
 // function renderBreed() {
 //   const selectBreed = slim.selected();
@@ -90,17 +116,71 @@ document.addEventListener('DOMContentLoaded', () => {
 //   }
 // }
 
-function renderBreed(breedId) {
+//5
+
+// selectBreed.addEventListener('change', event => {
+//   const renderedBreed = event.target.value;
+//   renderBreed(renderedBreed);
+// });
+
+// function renderBreed(event) {
+//   selectBreed.disabled = true;
+//   //catInfo.style.display = 'none';
+//   Notiflix.Loading.standard(loaderInfo.textContent);
+
+//   //const breedId = slim.selected();
+//   const breedId = event.target.value;
+
+//   fetchCatByBreed(breedId)
+//     .then(cat => {
+//       console.log('Fetched cat info', cat);
+//       Notiflix.Loading.remove();
+//       console.log(cat);
+//       catInfo.innerHTML = `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+//       <div class="description">
+//          <h2>${cat.breeds[0].name}</h2>
+//          <p>${cat.breeds[0].description}</p>
+//          <p>${cat.breeds[0].temperament}</p>
+//           </div>`;
+//       console.log(catInfo);
+//     })
+//     .catch(
+//       error => Notiflix.Loading.remove(),
+//       Notify.failure(errorInfo.textContent)
+//     );
+// }
+selectBreed.addEventListener('change', event => {
+  const selectedBreedId = event.target.value;
+  onSelectBreed(selectedBreedId);
+});
+
+function onSelectBreed(event) {
+  selectBreed.disabled = true;
+  catInfo.style.display = 'none';
+  Notiflix.Loading.standard(loaderInfo.textContent);
+
+  const breedId = event.target.value;
+
   fetchCatByBreed(breedId)
     .then(cat => {
-      Notiflix.Loading.remove();
-      catInfo.innerHTML = `<img src="${cat.url}" alt="${cat.breeds[0].name}">
-      <div class="description">
-         <h2>${cat.breeds[0].name}</h2>
-         <p>${cat.breeds[0].description}</p>
-         <p>${cat.breeds[0].temperament}</p>
-          </div>`;
+      console.log('Fetched cat info', cat);
+      Notiflix.Loading.remove(selectBreed);
+      console.log(cat);
+      divCatInfo.innerHTML = `
+                <img src="${cat.url}" alt="${cat.breeds[0].name}">
+    <div class="description">
+        <h2>${cat.breeds[0].name}</h2>
+        <p>${cat.breeds[0].description}</p>
+        <p>${cat.breeds[0].temperament}</p>
+    </div>
+            `;
       console.log(catInfo);
     })
-    .catch(error => Notify.failure(errorInfo.textContent));
+    .catch(error => {
+      console.log(error.response);
+      Notiflix.Loading.remove(selectBreed);
+      Notiflix.Notify.failure(
+        'Oops! Something went wrong! Try reloading the page!'
+      );
+    });
 }
