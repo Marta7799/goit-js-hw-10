@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 });
 
+//1
+
 // selectBreed.addEventListener('change', event => {
 //   Notiflix.Loading.standard(loaderInfo.textContent);
 //   fetchCatByBreed(breedId)
@@ -118,69 +120,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //5
 
-// selectBreed.addEventListener('change', event => {
-//   const renderedBreed = event.target.value;
-//   renderBreed(renderedBreed);
-// });
-
-// function renderBreed(event) {
-//   selectBreed.disabled = true;
-//   //catInfo.style.display = 'none';
-//   Notiflix.Loading.standard(loaderInfo.textContent);
-
-//   //const breedId = slim.selected();
-//   const breedId = event.target.value;
-
-//   fetchCatByBreed(breedId)
-//     .then(cat => {
-//       console.log('Fetched cat info', cat);
-//       Notiflix.Loading.remove();
-//       console.log(cat);
-//       catInfo.innerHTML = `<img src="${cat.url}" alt="${cat.breeds[0].name}">
-//       <div class="description">
-//          <h2>${cat.breeds[0].name}</h2>
-//          <p>${cat.breeds[0].description}</p>
-//          <p>${cat.breeds[0].temperament}</p>
-//           </div>`;
-//       console.log(catInfo);
-//     })
-//     .catch(
-//       error => Notiflix.Loading.remove(),
-//       Notify.failure(errorInfo.textContent)
-//     );
-// }
 selectBreed.addEventListener('change', event => {
-  const selectedBreedId = event.target.value;
-  onSelectBreed(selectedBreedId);
+  const renderedBreed = event.target.value;
+  renderBreed(renderedBreed);
 });
 
-function onSelectBreed(event) {
-  selectBreed.disabled = true;
-  catInfo.style.display = 'none';
+function renderBreed(event) {
+  //selectBreed.disabled = true;
+  //catInfo.style.display = 'none';
   Notiflix.Loading.standard(loaderInfo.textContent);
 
+  //const breedId = slim.selected();
   const breedId = event.target.value;
 
   fetchCatByBreed(breedId)
     .then(cat => {
       console.log('Fetched cat info', cat);
-      Notiflix.Loading.remove(selectBreed);
-      console.log(cat);
-      divCatInfo.innerHTML = `
-                <img src="${cat.url}" alt="${cat.breeds[0].name}">
-    <div class="description">
-        <h2>${cat.breeds[0].name}</h2>
-        <p>${cat.breeds[0].description}</p>
-        <p>${cat.breeds[0].temperament}</p>
-    </div>
-            `;
+      Notiflix.Loading.remove();
+      console.log(cat[0]);
+      catInfo.innerHTML = `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+      <div class="description">
+         <h2>${cat.breeds[0].name}</h2>
+         <p>${cat.breeds[0].description}</p>
+         <p>${cat.breeds[0].temperament}</p>
+          </div>`;
       console.log(catInfo);
     })
-    .catch(error => {
-      console.log(error.response);
-      Notiflix.Loading.remove(selectBreed);
-      Notiflix.Notify.failure(
-        'Oops! Something went wrong! Try reloading the page!'
-      );
-    });
+    .catch(
+      error => Notiflix.Loading.remove(),
+      Notify.failure(errorInfo.textContent)
+    );
 }
+
+selectBreed.addEventListener('change', renderBreed);
+
+// 6
+
+// selectBreed.addEventListener('change', event => {
+//   const selectedBreedId = event.target.value;
+//   onSelectBreed(selectedBreedId);
+// });
+
+// function onSelectBreed(event) {
+//   Notiflix.Loading.standard(loaderInfo.textContent);
+
+//   const breedId = event.target.value;
+
+//   fetchCatByBreed(breedId)
+//     .then(cat => {
+//       console.log('Fetched cat info', cat);
+//       Notiflix.Loading.remove(selectBreed);
+//       console.log(cat[0]);
+//       divCatInfo.innerHTML = `
+//                 <img src="${cat.url}" alt="${cat.breeds[0].name}">
+//     <div class="description">
+//         <h2>${cat.breeds[0].name}</h2>
+//         <p>${cat.breeds[0].description}</p>
+//         <p>${cat.breeds[0].temperament}</p>
+//     </div>
+//             `;
+//       console.log(catInfo);
+//     })
+//     .catch(error => {
+//       console.log(error.response);
+//       Notiflix.Loading.remove(selectBreed);
+//       Notiflix.Notify.failure(
+//         'Oops! Something went wrong! Try reloading the page!'
+//       );
+//     });
+// }
