@@ -27,20 +27,65 @@ document.addEventListener('DOMContentLoaded', () => {
         }))
       )
     )
-    .catch(error => Notiflix.Loading.remove()),
-    Notiflix.Notify.failure(errorInfo.textContent);
+    .catch(
+      (
+        error //Notiflix.Loading.remove()),
+      ) => Notiflix.Notify.failure(errorInfo.textContent)
+    );
 });
 
-function fetchCatByBreed(breeds) {
-  const markup = breeds
-    .map(breed => {
-      return `<img src="${cat.url}" alt="${cat.breeds[0].name}">
-    <div class="description">
+// function fetchCatByBreed(breeds) {
+//   const markup = breeds
+//     .map(breed => {
+//       return `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+//     <div class="description">
+//         <h2>${cat.breeds[0].name}</h2>
+//         <p>${cat.breeds[0].description}</p>
+//         <p>${cat.breeds[0].temperament}</p>
+//     </div>`;
+//     })
+//     .join('');
+//   catInfo.innerHTML = markup;
+// }
+
+// function renderBreed() {
+//   const selectBreed = slim.selected();
+//   if (selectedBreed) {
+//     fetchCatByBreed().then(cat => {
+//       const markup = breeds
+//         .map(breed => {
+//           return `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+//     <div class="description">
+//         <h2>${cat.breeds[0].name}</h2>
+//         <p>${cat.breeds[0].description}</p>
+//         <p>${cat.breeds[0].temperament}</p>
+//     </div>`;
+//         })
+//         .join('');
+//       catInfo.innerHTML = markup;
+//     });
+//   }
+// }
+
+function renderBreed() {
+  const selectBreed = slim.selected();
+  if (selectedBreed) {
+    fetchCatByBreed(selectedBreed, (error, catInfo) => {
+      if (error) {
+        handleError(error);
+      } else {
+        const markup = breeds
+          .map(breed => {
+            return `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+     <div class="description">
         <h2>${cat.breeds[0].name}</h2>
         <p>${cat.breeds[0].description}</p>
         <p>${cat.breeds[0].temperament}</p>
-    </div>`;
-    })
-    .join('');
-  catInfo.innerHTML = markup;
+             </div>`;
+          })
+          .join('');
+        catInfo.innerHTML = markup;
+      }
+    });
+  }
 }
