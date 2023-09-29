@@ -13,24 +13,17 @@ const loaderInfo = document.querySelector('.loader');
 const errorInfo = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
 
-// function cleanHtml() {
-//   catInfo.innerHTML = '';
-//   catInfo.innerHTML = '';
-//}
-
 document.addEventListener('DOMContentLoaded', () => {
-  //cleanHtml();
   Notiflix.Loading.standard(loaderInfo.textContent);
   fetchBreeds().then(breeds => {
-    Notiflix.Loading.remove()(
-      (select = new SlimSelect({
-        select: '.breed-select',
-        data: breeds.map(breed => ({
-          text: breed.name,
-          value: breed.id,
-        })),
-      }))
-    );
+    Notiflix.Loading.remove();
+    select = new SlimSelect({
+      select: '.breed-select',
+      data: breeds.map(breed => ({
+        text: breed.name,
+        value: breed.id,
+      })),
+    });
   }).catch;
   error => Notiflix.Loading.remove(), Notify.failure(errorInfo.textContent);
 });
@@ -51,7 +44,7 @@ const renderBreed = event => {
     catInfo.innerHTML = markup;
     console.log(catInfo);
   }).catch;
-  error => Notiflix.Loading.remove(), Notify.failure(errorInfo.textContent)();
+  error => Notiflix.Loading.remove(), Notify.failure(errorInfo.textContent);
 };
 
 selectBreed.addEventListener('change', renderBreed);
