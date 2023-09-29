@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })),
     });
   }).catch;
-  error => Notiflix.Loading.remove(), Notify.failure(errorInfo.textContent);
+  error => (Notiflix.Loading.remove(), Notify.failure(errorInfo.textContent));
 });
 
 const renderBreed = event => {
@@ -44,7 +44,7 @@ const renderBreed = event => {
     catInfo.innerHTML = markup;
     console.log(catInfo);
   }).catch;
-  error => Notiflix.Loading.remove(), Notify.failure(errorInfo.textContent);
+  error => (Notiflix.Loading.remove(), Notify.failure(errorInfo.textContent));
 };
 
 selectBreed.addEventListener('change', renderBreed);
