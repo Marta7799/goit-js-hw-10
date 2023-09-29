@@ -135,18 +135,16 @@ const renderBreed = event => {
 
   fetchCatByBreed(breedId)
     .then(cat => {
-      // console.log('Fetched cat info', cat);
       // Notiflix.Loading.remove();
-      // console.log(cat);
-      // catInfo.innerHTML
-      const markup = `<img src="${cat.url}" alt="${cat.breeds[0].name}">
+
+      const markup = `<img src="${cat[0].url}" alt="${cat[0].breeds[0].name}">
       <div class="description">
-         <h2>${cat.breeds[0].name}</h2>
-         <p>${cat.breeds[0].description}</p>
-         <p>${cat.breeds[0].temperament}</p>
+         <h2>${cat[0].breeds[0].name}</h2>
+         <p>${cat[0].breeds[0].description}</p>
+         <p>${cat[0].breeds[0].temperament}</p>
           </div>`;
       catInfo.innerHTML = markup;
-      // console.log(catInfo);
+      console.log(catInfo);
     })
     .catch(
       error => Notiflix.Loading.remove(),
