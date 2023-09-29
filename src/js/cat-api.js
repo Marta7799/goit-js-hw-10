@@ -16,7 +16,7 @@ export const fetchBreeds = () => {
 
 export const fetchCatByBreed = breedId => {
   return axios
-    .get('https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}')
+    .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then(response => {
       return response.data;
     })

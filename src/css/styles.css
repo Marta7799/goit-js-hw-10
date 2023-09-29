@@ -19,6 +19,19 @@ body {
 .is-hidden {
   display: none;
 }
+.cat-info {
+  display: flex;
+  margin: 40px;
+}
+.description {
+  text-align: center;
+  margin-top: 40px;
+  margin-left: 40px;
+}
+
+img {
+  max-width: 60vw;
+}
 
 .loader {
   transform: rotateZ(45deg);
