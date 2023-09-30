@@ -26,7 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })),
       });
     })
-    .catch(error => Notify.failure(errorInfo.textContent));
+    .catch(error => {
+      Notiflix.Loading.remove();
+      Notify.failure(errorInfo.textContent);
+    });
 });
 const renderBreed = event => {
   Notiflix.Loading.standard(loaderInfo.textContent);
@@ -45,7 +48,10 @@ const renderBreed = event => {
       catInfo.innerHTML = markup;
       console.log(catInfo);
     })
-    .catch(error => Notify.failure(errorInfo.textContent));
+    .catch(error => {
+      Notiflix.Loading.remove();
+      Notify.failure(errorInfo.textContent);
+    });
 };
 
 selectBreed.addEventListener('change', renderBreed);
